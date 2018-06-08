@@ -84,7 +84,7 @@ public class Find_Nikon {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("result_1")));
 		
 		//Click on the second item retrieved by the search
-		System.out.println("Clicking on the second item in the list");
+		System.out.println("Clicking on the second item in the list.");
 		
 		List <WebElement> itemsList = new ArrayList<>();
 		itemsList = driver.findElements(By.cssSelector("li[id*='result']"));
