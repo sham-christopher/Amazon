@@ -21,42 +21,14 @@ import junit.framework.Assert;
 	
 public class Find_Nikon {
 	WebDriver driver;
+	browserTasks browserTasks = new browserTasks();
 	
-	@Given("^I navigate to \"([^\"]*)\" using \"([^\"]*)\" browser$")
-	public void navigateToURL(String URL, String Browser) throws Exception  {
-		switch(Browser.toLowerCase()){
-			case "chrome" : 	System.out.println("Initialising Chrome driver");
-			
-								//Open Chrome in Incognito mode
-								ChromeOptions options = new ChromeOptions();
-								options.addArguments("--incognito");
-								DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-								capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-								
-								//Navigate to the Website
-								System.out.println("Going to "+URL);
-								System.setProperty("webdriver.chrome.driver","C:\\Selenium\\chromedriver_win32\\chromedriver.exe");
-								driver = new ChromeDriver(capabilities);
-								driver.navigate().to(URL);
-								driver.manage().window().maximize();
-								break;
-								
-			case "firefox":		System.out.println("Initialising Firefor driver");
-		
-								//Open Firefox in Incognito mode
-								FirefoxProfile firefoxProfile = new FirefoxProfile();    
-								firefoxProfile.setPreference("browser.privatebrowsing.autostart", true);
-						
-								//Initialising WebDriver
-								System.setProperty("webdriver.gecko.driver", "C:\\Selenium\\geckodriver-v0.20.1-win64\\geckodriver.exe");
-								driver = new FirefoxDriver();
-								driver.navigate().to(URL);
-								driver.manage().window().maximize();
-								break;
-			}
+	@Given("^I navigate to \"(.*)\" using \"(.*)\" browser$")
+	public void openBrowserAndNavigateToURL(String URL, String Browser) throws Exception  {
+		browserTasks.launchBrowser(Browser, driver, URL);
 	}
 
-	@When("^I search for \"([^\"]*)\" in the search box$")
+	@When("^I search for \"(.*)\" in the search box$")
 	public void searchBox(String arg1) throws Exception  {
 		// Search for Nikon in the search box
 		System.out.println("Searching for Nikon");
@@ -65,7 +37,7 @@ public class Find_Nikon {
 		driver.findElement(By.id("twotabsearchtextbox")).sendKeys(Keys.RETURN);
 	}
 
-	@Then("^I sort by \"([^\"]*)\"$")
+	@Then("^I sort by \"(.*)\"$")
 	public void sort(String sort) throws Exception  {
 		//Make the WebDriver to wait until the items are sorted
 		WebDriverWait wait=new WebDriverWait(driver, 20);
@@ -77,7 +49,7 @@ public class Find_Nikon {
 		sortDropdown.selectByVisibleText(sort); 
 	}
 
-	@Then("^I click on the no \"([^\"]*)\" item in the list$")
+	@Then("^I click on the no \"(.*)\" item in the list$")
 	public void clickOnWebElement(String arg1) throws Exception  {
 		//Make the WebDriver to wait until the items are sorted
 		WebDriverWait wait=new WebDriverWait(driver, 20);
@@ -94,7 +66,7 @@ public class Find_Nikon {
 		item.findElement(By.cssSelector("a[href*='www.amazon.com']")).click();;
 	}
 
-	@And("^I check if the product displayed is \"([^\"]*)\"$")
+	@And("^I check if the product displayed is \"(.*)\"$")
 	public void assertion(String arg1) throws Exception  {
 		//Check the product topic
 		//Checking if the product is Nikon D3X
