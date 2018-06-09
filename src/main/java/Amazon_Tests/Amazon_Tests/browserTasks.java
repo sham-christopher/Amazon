@@ -7,8 +7,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.FirefoxDriverManager;
+
 public class browserTasks {
-	public void launchBrowser(String Browser, WebDriver driver, String URL) {
+	public WebDriver launchBrowser(String Browser, WebDriver driver, String URL) {
 		switch(Browser.toLowerCase()){
 		case "chrome" : 	System.out.println("Initialising Chrome driver");
 		
@@ -19,8 +22,9 @@ public class browserTasks {
 							capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 							
 							//Navigate to the Website
-							System.setProperty("webdriver.chrome.driver","C:\\Selenium\\chromedriver_win32\\chromedriver.exe");
+							ChromeDriverManager.getInstance().setup();
 							driver = new ChromeDriver(capabilities);
+							System.out.println("Driver used is "+ driver);
 							System.out.println("Navigating to "+URL);
 							driver.navigate().to(URL);
 							driver.manage().window().maximize();
@@ -33,12 +37,13 @@ public class browserTasks {
 							firefoxProfile.setPreference("browser.privatebrowsing.autostart", true);
 					
 							//Initialising WebDriver
-							System.setProperty("webdriver.gecko.driver", "C:\\Selenium\\geckodriver-v0.20.1-win64\\geckodriver.exe");
+							FirefoxDriverManager.getInstance().setup();
 							driver = new FirefoxDriver();
 							System.out.println("Navigating to "+URL);
 							driver.navigate().to(URL);
 							driver.manage().window().maximize();
 							break;
 		}
+		return (driver);
 	}
 }

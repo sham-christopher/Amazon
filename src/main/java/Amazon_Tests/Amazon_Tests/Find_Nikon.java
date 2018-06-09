@@ -25,7 +25,7 @@ public class Find_Nikon {
 	
 	@Given("^I navigate to \"(.*)\" using \"(.*)\" browser$")
 	public void openBrowserAndNavigateToURL(String URL, String Browser) throws Exception  {
-		browserTasks.launchBrowser(Browser, driver, URL);
+		driver = browserTasks.launchBrowser(Browser, driver, URL);
 	}
 
 	@When("^I search for \"(.*)\" in the search box$")
@@ -68,9 +68,17 @@ public class Find_Nikon {
 
 	@And("^I check if the product displayed is \"(.*)\"$")
 	public void assertion(String arg1) throws Exception  {
-		//Check the product topic
 		//Checking if the product is Nikon D3X
 		String productTopic = driver.findElement(By.id("productTitle")).getText();
-		Assert.assertTrue(productTopic.contains(arg1));		
+		try {
+			Assert.assertTrue(productTopic.contains(arg1));
+			System.out.println("Assert passed");
+		}
+		catch(AssertionError e) {
+			driver.quit();
+			System.out.println("Assert failed. "+arg1+" not found");
+			throw e;
+		}
+			
 	}
 }
