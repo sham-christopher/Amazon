@@ -1,4 +1,4 @@
-package Amazon_Tests.Amazon_Tests;
+package stepDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import Amazon_Tests.Amazon_Tests.browserTasks;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

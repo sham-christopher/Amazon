@@ -9,8 +9,8 @@ import cucumber.api.junit.Cucumber;
 
 @CucumberOptions(
 		features = "Features",
-		glue = {"Amazon_Tests.Amazon_Tests"}
+		glue = {"stepDefinition"}
 		)
-public class MainRunner {
+public class TestRunner {
 
 }
